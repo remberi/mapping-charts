@@ -2,7 +2,7 @@
   "name": "mapping-charts",
   "version": "1.0.0",
   "description": "Made with create-react-library",
-  "author": "",
+  "author": "rember-i",
   "license": "MIT",
   "repository": "https://github.com/remberi/mapping-charts.git",
   "main": "dist/index.js",

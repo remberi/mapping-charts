@@ -1,0 +1,20 @@
+/* add css module styles here (optional) */
+
+._3y0Wr{
+  list-style: none;
+}
+
+
+._3y0Wr  li div{
+  display: flex;
+  align-items: center;
+  letter-spacing: 2px;
+  font-size: 14px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+._3y0Wr  li div span{
+  width: 100%;
+  text-align: center;
+}
