@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: jiangjie
  * @Date: 2022-08-26 11:23:01
- * @LastEditTime: 2022-08-26 13:58:16
+ * @LastEditTime: 2022-08-26 16:28:06
  * @LastEditors: jiangjie
  * @Reference: 
 -->
@@ -31,6 +31,7 @@ npm install --save mapping-charts
 import * as React from 'react'
 
 import MappingCharts from 'mapping-charts'
+import 'mapping-charts/dist/index.css'
 
 const Example = () => {
   const list  = [

@@ -2,13 +2,13 @@
  * @Description: 
  * @Author: jiangjie
  * @Date: 2022-08-26 11:23:01
- * @LastEditTime: 2022-08-26 13:48:33
+ * @LastEditTime: 2022-08-26 16:33:29
  * @LastEditors: jiangjie
  * @Reference: 
  */
 import React from 'react'
 
-import MappingCharts from 'mapping-charts'
+import MappingCharts,{hide,show} from 'mapping-charts'
 import 'mapping-charts/dist/index.css'
 
 const App = () => {
@@ -59,7 +59,12 @@ const App = () => {
       gap:200,
     }
   ];
-  return <MappingCharts elements={list}  />
+
+  return <>
+          <button onClick={()=>{hide()}}>隐藏</button>
+          <button onClick={()=>{show()}}>显示</button>
+         <MappingCharts elements={list}  />
+    </>
 }
 
 export default App

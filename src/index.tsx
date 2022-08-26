@@ -2,7 +2,7 @@
  * @Description: 样本对比图
  * @Author: jiangjie
  * @Date: 2022-08-25 09:40:09
- * @LastEditTime: 2022-08-26 13:48:19
+ * @LastEditTime: 2022-08-26 16:47:20
  * @LastEditors: jiangjie
  * @Reference:
  */
@@ -68,6 +68,27 @@ const randomRgbColor = function () {
   return `rgb(${r},${g},${b})` // 返回rgb(r,g,b)格式颜色
 }
 
+const partObject: any = {}
+
+// 隐藏元素
+const hide = () => {
+  if (partObject) {
+    console.log(partObject)
+    for (const key of Object.keys(partObject)) {
+      partObject[key].hide()
+    }
+  }
+}
+// 显示元素
+const show = () => {
+  if (partObject) {
+    console.log(partObject)
+    for (const key of Object.keys(partObject)) {
+      partObject[key].show()
+    }
+  }
+}
+
 // 映射对比图
 const MappingCharts = (props: MappingChartsProps) => {
   const { elements } = props
@@ -76,7 +97,7 @@ const MappingCharts = (props: MappingChartsProps) => {
     function init() {
       try {
         if (elements && Array.isArray(elements)) {
-          console.log('待渲染数据:', elements)
+          // console.log('待渲染数据:', elements)
           const ul = document.getElementById('mapping_part')
           for (let index = 0; index < elements.length; index++) {
             const element = elements[index]
@@ -121,27 +142,26 @@ const MappingCharts = (props: MappingChartsProps) => {
         }
 
         setTimeout(function () {
-          const partObject: any = {}
           for (let j = 0; j < elements.length; j++) {
             const element = elements[j]
             for (let p = 0; p < element.list.length; p++) {
               const item = element.list[p]
               if (item.target !== '') {
                 const pos = filterPos(elements, item.target)
-                console.log('item.target:' + item.target)
-                console.log('目标接节点:' + pos)
-                partObject['item_' + p] = new LeaderLine(
+                // console.log('item.target:' + item.target)
+                // console.log('目标接节点:' + pos)
+                partObject['item_' + j + '_' + p] = new LeaderLine(
                   document.getElementById('part_' + j + '_' + p + '')!,
                   document.getElementById(pos)!,
                   { hide: true }
                 )
                 if (item.start !== '' && item.end !== '') {
-                  partObject['item_' + p].setOptions({
+                  partObject['item_' + j + '_' + p].setOptions({
                     startSocket: item.start,
                     endSocket: item.end,
                     path: 'fluid'
                   })
-                  partObject['item_' + p].show('draw', {
+                  partObject['item_' + j + '_' + p].show('draw', {
                     duration: 1000,
                     timing: [0.58, 0, 0.42, 1]
                   })
@@ -149,6 +169,7 @@ const MappingCharts = (props: MappingChartsProps) => {
               }
             }
           }
+          console.log(partObject)
         }, 200)
       } catch (error) {
         console.log(error)
@@ -163,5 +184,5 @@ const MappingCharts = (props: MappingChartsProps) => {
     </div>
   )
 }
-
 export default MappingCharts
+export { hide, show, partObject }

@@ -16,5 +16,9 @@ interface Element {
 interface MappingChartsProps {
     elements: Array<Element>;
 }
+declare const partObject: any;
+declare const hide: () => void;
+declare const show: () => void;
 declare const MappingCharts: (props: MappingChartsProps) => JSX.Element;
 export default MappingCharts;
+export { hide, show, partObject };

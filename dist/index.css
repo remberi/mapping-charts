@@ -1,11 +1,11 @@
 /* add css module styles here (optional) */
 
-._3y0Wr{
+._styles-module__mapping_part__3y0Wr{
   list-style: none;
 }
 
 
-._3y0Wr  li div{
+._styles-module__mapping_part__3y0Wr  li div{
   display: flex;
   align-items: center;
   letter-spacing: 2px;
@@ -14,7 +14,7 @@
 }
 
 
-._3y0Wr  li div span{
+._styles-module__mapping_part__3y0Wr  li div span{
   width: 100%;
   text-align: center;
 }

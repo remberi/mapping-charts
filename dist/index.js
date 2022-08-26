@@ -20,7 +20,7 @@ var LeaderLine=function(){var te,M,I,C,L,o,t,h,f,p,n,a,e,x,b,l,r,i,k,w,s,u,c,A="
 
 var LeaderLine = unwrapExports(leaderLine_min);
 
-var styles = {"mapping_part":"_3y0Wr"};
+var styles = {"mapping_part":"_styles-module__mapping_part__3y0Wr"};
 
 function filterPos(elements, target) {
   var partOne, partTwo;
@@ -50,13 +50,36 @@ var randomRgbColor = function randomRgbColor() {
   return "rgb(" + r + "," + g + "," + b + ")";
 };
 
+var partObject = {};
+
+var hide = function hide() {
+  if (partObject) {
+    console.log(partObject);
+
+    for (var _i = 0, _Object$keys = Object.keys(partObject); _i < _Object$keys.length; _i++) {
+      var key = _Object$keys[_i];
+      partObject[key].hide();
+    }
+  }
+};
+
+var show = function show() {
+  if (partObject) {
+    console.log(partObject);
+
+    for (var _i2 = 0, _Object$keys2 = Object.keys(partObject); _i2 < _Object$keys2.length; _i2++) {
+      var key = _Object$keys2[_i2];
+      partObject[key].show();
+    }
+  }
+};
+
 var MappingCharts = function MappingCharts(props) {
   var elements = props.elements;
   React.useEffect(function () {
     function init() {
       try {
         if (elements && Array.isArray(elements)) {
-          console.log('待渲染数据:', elements);
           var ul = document.getElementById('mapping_part');
 
           for (var index = 0; index < elements.length; index++) {
@@ -85,8 +108,6 @@ var MappingCharts = function MappingCharts(props) {
         }
 
         setTimeout(function () {
-          var partObject = {};
-
           for (var j = 0; j < elements.length; j++) {
             var _element = elements[j];
 
@@ -95,19 +116,17 @@ var MappingCharts = function MappingCharts(props) {
 
               if (_item.target !== '') {
                 var pos = filterPos(elements, _item.target);
-                console.log('item.target:' + _item.target);
-                console.log('目标接节点:' + pos);
-                partObject['item_' + p] = new LeaderLine(document.getElementById('part_' + j + '_' + p + ''), document.getElementById(pos), {
+                partObject['item_' + j + '_' + p] = new LeaderLine(document.getElementById('part_' + j + '_' + p + ''), document.getElementById(pos), {
                   hide: true
                 });
 
                 if (_item.start !== '' && _item.end !== '') {
-                  partObject['item_' + p].setOptions({
+                  partObject['item_' + j + '_' + p].setOptions({
                     startSocket: _item.start,
                     endSocket: _item.end,
                     path: 'fluid'
                   });
-                  partObject['item_' + p].show('draw', {
+                  partObject['item_' + j + '_' + p].show('draw', {
                     duration: 1000,
                     timing: [0.58, 0, 0.42, 1]
                   });
@@ -115,6 +134,8 @@ var MappingCharts = function MappingCharts(props) {
               }
             }
           }
+
+          console.log(partObject);
         }, 200);
       } catch (error) {
         console.log(error);
@@ -131,5 +152,8 @@ var MappingCharts = function MappingCharts(props) {
   }));
 };
 
-module.exports = MappingCharts;
+exports.default = MappingCharts;
+exports.hide = hide;
+exports.partObject = partObject;
+exports.show = show;
 //# sourceMappingURL=index.js.map

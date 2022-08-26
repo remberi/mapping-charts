@@ -17,18 +17,18 @@ var LeaderLine=function(){var te,M,I,C,L,o,t,h,f,p,n,a,e,x,b,l,r,i,k,w,s,u,c,A="
 
 var LeaderLine = unwrapExports(leaderLine_min);
 
-var styles = {"mapping_part":"_3y0Wr"};
+var styles = {"mapping_part":"_styles-module__mapping_part__3y0Wr"};
 
 function filterPos(elements, target) {
-  var partOne, partTwo;
+  let partOne, partTwo;
 
-  for (var j = 0; j < elements.length; j++) {
-    var element = elements[j];
+  for (let j = 0; j < elements.length; j++) {
+    const element = elements[j];
     if (partTwo) break;
     partOne = j;
 
-    for (var p = 0; p < element.list.length; p++) {
-      var item = element.list[p];
+    for (let p = 0; p < element.list.length; p++) {
+      const item = element.list[p];
 
       if (item.name === target) {
         partTwo = p;
@@ -40,38 +40,61 @@ function filterPos(elements, target) {
   return 'part_' + partOne + '_' + partTwo;
 }
 
-var randomRgbColor = function randomRgbColor() {
+const randomRgbColor = function () {
   var r = Math.floor(Math.random() * 256);
   var g = Math.floor(Math.random() * 256);
   var b = Math.floor(Math.random() * 256);
-  return "rgb(" + r + "," + g + "," + b + ")";
+  return `rgb(${r},${g},${b})`;
 };
 
-var MappingCharts = function MappingCharts(props) {
-  var elements = props.elements;
-  useEffect(function () {
+const partObject = {};
+
+const hide = () => {
+  if (partObject) {
+    console.log(partObject);
+
+    for (const key of Object.keys(partObject)) {
+      partObject[key].hide();
+    }
+  }
+};
+
+const show = () => {
+  if (partObject) {
+    console.log(partObject);
+
+    for (const key of Object.keys(partObject)) {
+      partObject[key].show();
+    }
+  }
+};
+
+const MappingCharts = props => {
+  const {
+    elements
+  } = props;
+  useEffect(() => {
     function init() {
       try {
         if (elements && Array.isArray(elements)) {
-          console.log('待渲染数据:', elements);
-          var ul = document.getElementById('mapping_part');
+          const ul = document.getElementById('mapping_part');
 
-          for (var index = 0; index < elements.length; index++) {
-            var element = elements[index];
-            var li = document.createElement('li');
-            var liDiv = document.createElement('div');
+          for (let index = 0; index < elements.length; index++) {
+            const element = elements[index];
+            const li = document.createElement('li');
+            const liDiv = document.createElement('div');
             li.className = 'part_' + index;
             li.style.marginTop = element.gap + 'px';
             liDiv.className = 'part_box';
-            var strBuffer = '<div>' + element.title + ':</div>';
+            let strBuffer = '<div>' + element.title + ':</div>';
 
-            for (var k = 0; k < element.list.length; k++) {
-              var item = element.list[k];
-              var h = item.height ? item.height : 20;
-              var w = item.width ? item.width : 40;
-              var d = element.distance || 0;
-              var c = item.color ? item.color : randomRgbColor();
-              var value = '<div id="part_' + index + '_' + k + '" style="height:' + h + 'px;width:' + w + 'px;margin:0 ' + d + 'px;background:' + c + ';"><span>' + item.name + '</span></div>';
+            for (let k = 0; k < element.list.length; k++) {
+              const item = element.list[k];
+              const h = item.height ? item.height : 20;
+              const w = item.width ? item.width : 40;
+              const d = element.distance || 0;
+              const c = item.color ? item.color : randomRgbColor();
+              const value = '<div id="part_' + index + '_' + k + '" style="height:' + h + 'px;width:' + w + 'px;margin:0 ' + d + 'px;background:' + c + ';"><span>' + item.name + '</span></div>';
               strBuffer += value;
             }
 
@@ -82,29 +105,25 @@ var MappingCharts = function MappingCharts(props) {
         }
 
         setTimeout(function () {
-          var partObject = {};
+          for (let j = 0; j < elements.length; j++) {
+            const element = elements[j];
 
-          for (var j = 0; j < elements.length; j++) {
-            var _element = elements[j];
+            for (let p = 0; p < element.list.length; p++) {
+              const item = element.list[p];
 
-            for (var p = 0; p < _element.list.length; p++) {
-              var _item = _element.list[p];
-
-              if (_item.target !== '') {
-                var pos = filterPos(elements, _item.target);
-                console.log('item.target:' + _item.target);
-                console.log('目标接节点:' + pos);
-                partObject['item_' + p] = new LeaderLine(document.getElementById('part_' + j + '_' + p + ''), document.getElementById(pos), {
+              if (item.target !== '') {
+                const pos = filterPos(elements, item.target);
+                partObject['item_' + j + '_' + p] = new LeaderLine(document.getElementById('part_' + j + '_' + p + ''), document.getElementById(pos), {
                   hide: true
                 });
 
-                if (_item.start !== '' && _item.end !== '') {
-                  partObject['item_' + p].setOptions({
-                    startSocket: _item.start,
-                    endSocket: _item.end,
+                if (item.start !== '' && item.end !== '') {
+                  partObject['item_' + j + '_' + p].setOptions({
+                    startSocket: item.start,
+                    endSocket: item.end,
                     path: 'fluid'
                   });
-                  partObject['item_' + p].show('draw', {
+                  partObject['item_' + j + '_' + p].show('draw', {
                     duration: 1000,
                     timing: [0.58, 0, 0.42, 1]
                   });
@@ -112,6 +131,8 @@ var MappingCharts = function MappingCharts(props) {
               }
             }
           }
+
+          console.log(partObject);
         }, 200);
       } catch (error) {
         console.log(error);
@@ -129,4 +150,5 @@ var MappingCharts = function MappingCharts(props) {
 };
 
 export default MappingCharts;
+export { hide, partObject, show };
 //# sourceMappingURL=index.modern.js.map
