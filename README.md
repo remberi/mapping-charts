@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: jiangjie
  * @Date: 2022-08-26 11:23:01
- * @LastEditTime: 2022-08-26 16:28:06
+ * @LastEditTime: 2022-08-26 16:50:21
  * @LastEditors: jiangjie
  * @Reference: 
 -->
@@ -30,7 +30,7 @@ npm install --save mapping-charts
 ```tsx
 import * as React from 'react'
 
-import MappingCharts from 'mapping-charts'
+import MappingCharts,{hide,show} from 'mapping-charts'
 import 'mapping-charts/dist/index.css'
 
 const Example = () => {
@@ -89,6 +89,10 @@ const Example = () => {
 | `distance` | 样本片段间隔距离 |
 | `gap` | 样本上下间距 |
 
+### Function
+
+hide() 控制图表隐藏
+show() 控制图表显示(默认显示)
 
 ## 大概效果
 
