@@ -2,14 +2,14 @@
  * @Description: 
  * @Author: jiangjie
  * @Date: 2022-08-26 11:23:01
- * @LastEditTime: 2022-08-26 16:33:29
+ * @LastEditTime: 2022-09-01 14:39:20
  * @LastEditors: jiangjie
  * @Reference: 
  */
 import React from 'react'
 
 import MappingCharts,{hide,show} from 'mapping-charts'
-import 'mapping-charts/dist/index.css'
+// import 'mapping-charts/dist/index.css'
 
 const App = () => {
   const list  = [
@@ -63,7 +63,7 @@ const App = () => {
   return <>
           <button onClick={()=>{hide()}}>隐藏</button>
           <button onClick={()=>{show()}}>显示</button>
-         <MappingCharts elements={list}  />
+         <MappingCharts elements={list} elementId={"videoDNA"}  />
     </>
 }
 

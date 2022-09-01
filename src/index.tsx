@@ -2,7 +2,7 @@
  * @Description: 样本对比图
  * @Author: jiangjie
  * @Date: 2022-08-25 09:40:09
- * @LastEditTime: 2022-08-26 16:47:20
+ * @LastEditTime: 2022-09-01 14:26:51
  * @LastEditors: jiangjie
  * @Reference:
  */
@@ -32,6 +32,7 @@ interface Element {
 // 全部集合
 interface MappingChartsProps {
   elements: Array<Element> // 定义需要展示的元素数据
+  elementId: string // 用来区分不同图表
 }
 
 /**
@@ -91,14 +92,14 @@ const show = () => {
 
 // 映射对比图
 const MappingCharts = (props: MappingChartsProps) => {
-  const { elements } = props
+  const { elements, elementId } = props
 
   useEffect(() => {
     function init() {
       try {
         if (elements && Array.isArray(elements)) {
           // console.log('待渲染数据:', elements)
-          const ul = document.getElementById('mapping_part')
+          const ul = document.getElementById(elementId)
           for (let index = 0; index < elements.length; index++) {
             const element = elements[index]
             const li = document.createElement('li')
@@ -119,6 +120,8 @@ const MappingCharts = (props: MappingChartsProps) => {
                 index +
                 '_' +
                 k +
+                '_' +
+                elementId +
                 '" style="height:' +
                 h +
                 'px;width:' +
@@ -150,21 +153,29 @@ const MappingCharts = (props: MappingChartsProps) => {
                 const pos = filterPos(elements, item.target)
                 // console.log('item.target:' + item.target)
                 // console.log('目标接节点:' + pos)
-                partObject['item_' + j + '_' + p] = new LeaderLine(
-                  document.getElementById('part_' + j + '_' + p + '')!,
-                  document.getElementById(pos)!,
-                  { hide: true }
-                )
+                partObject['item_' + j + '_' + p + '_' + elementId] =
+                  new LeaderLine(
+                    document.getElementById(
+                      'part_' + j + '_' + p + '_' + elementId
+                    )!,
+                    document.getElementById(pos + '_' + elementId)!,
+                    { hide: true }
+                  )
                 if (item.start !== '' && item.end !== '') {
-                  partObject['item_' + j + '_' + p].setOptions({
+                  partObject[
+                    'item_' + j + '_' + p + '_' + elementId
+                  ].setOptions({
                     startSocket: item.start,
                     endSocket: item.end,
                     path: 'fluid'
                   })
-                  partObject['item_' + j + '_' + p].show('draw', {
-                    duration: 1000,
-                    timing: [0.58, 0, 0.42, 1]
-                  })
+                  partObject['item_' + j + '_' + p + '_' + elementId].show(
+                    'draw',
+                    {
+                      duration: 1000,
+                      timing: [0.58, 0, 0.42, 1]
+                    }
+                  )
                 }
               }
             }
@@ -180,7 +191,7 @@ const MappingCharts = (props: MappingChartsProps) => {
 
   return (
     <div className='mapping_charts'>
-      <ul id='mapping_part' className={styles.mapping_part} />
+      <ul id={elementId} className={styles.mapping_part} />
     </div>
   )
 }

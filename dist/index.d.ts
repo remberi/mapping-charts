@@ -15,6 +15,7 @@ interface Element {
 }
 interface MappingChartsProps {
     elements: Array<Element>;
+    elementId: string;
 }
 declare const partObject: any;
 declare const hide: () => void;

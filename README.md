@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: jiangjie
  * @Date: 2022-08-26 11:23:01
- * @LastEditTime: 2022-08-26 16:50:21
+ * @LastEditTime: 2022-09-01 14:36:51
  * @LastEditors: jiangjie
  * @Reference: 
 -->
@@ -68,7 +68,7 @@ const Example = () => {
   ];
   return (
     <div>
-       <MappingCharts elements={list}/>
+       <MappingCharts elements={list} elementId={"videoDNA"}  />
     </div>
   )
 }
@@ -101,6 +101,20 @@ show() 控制图表显示(默认显示)
 
 ##### 本组件通过<a href="https://github.com/transitive-bullshit/create-react-library/blob/master/readme.zh-CN.md">create-react-library</a>脚手架创建
 
+## run demo
+```
+  cd /mapping_charts
+
+  yarn install
+
+  yarn start
+
+  cd /example
+
+  yarn install
+
+  yarn start
+```
 ## License
 
 MIT © [](https://github.com/)

@@ -75,12 +75,13 @@ var show = function show() {
 };
 
 var MappingCharts = function MappingCharts(props) {
-  var elements = props.elements;
+  var elements = props.elements,
+      elementId = props.elementId;
   React.useEffect(function () {
     function init() {
       try {
         if (elements && Array.isArray(elements)) {
-          var ul = document.getElementById('mapping_part');
+          var ul = document.getElementById(elementId);
 
           for (var index = 0; index < elements.length; index++) {
             var element = elements[index];
@@ -97,7 +98,7 @@ var MappingCharts = function MappingCharts(props) {
               var w = item.width ? item.width : 40;
               var d = element.distance || 0;
               var c = item.color ? item.color : randomRgbColor();
-              var value = '<div id="part_' + index + '_' + k + '" style="height:' + h + 'px;width:' + w + 'px;margin:0 ' + d + 'px;background:' + c + ';"><span>' + item.name + '</span></div>';
+              var value = '<div id="part_' + index + '_' + k + '_' + elementId + '" style="height:' + h + 'px;width:' + w + 'px;margin:0 ' + d + 'px;background:' + c + ';"><span>' + item.name + '</span></div>';
               strBuffer += value;
             }
 
@@ -116,17 +117,17 @@ var MappingCharts = function MappingCharts(props) {
 
               if (_item.target !== '') {
                 var pos = filterPos(elements, _item.target);
-                partObject['item_' + j + '_' + p] = new LeaderLine(document.getElementById('part_' + j + '_' + p + ''), document.getElementById(pos), {
+                partObject['item_' + j + '_' + p + '_' + elementId] = new LeaderLine(document.getElementById('part_' + j + '_' + p + '_' + elementId), document.getElementById(pos + '_' + elementId), {
                   hide: true
                 });
 
                 if (_item.start !== '' && _item.end !== '') {
-                  partObject['item_' + j + '_' + p].setOptions({
+                  partObject['item_' + j + '_' + p + '_' + elementId].setOptions({
                     startSocket: _item.start,
                     endSocket: _item.end,
                     path: 'fluid'
                   });
-                  partObject['item_' + j + '_' + p].show('draw', {
+                  partObject['item_' + j + '_' + p + '_' + elementId].show('draw', {
                     duration: 1000,
                     timing: [0.58, 0, 0.42, 1]
                   });
@@ -147,7 +148,7 @@ var MappingCharts = function MappingCharts(props) {
   return React__default.createElement("div", {
     className: 'mapping_charts'
   }, React__default.createElement("ul", {
-    id: 'mapping_part',
+    id: elementId,
     className: styles.mapping_part
   }));
 };

@@ -71,13 +71,14 @@ const show = () => {
 
 const MappingCharts = props => {
   const {
-    elements
+    elements,
+    elementId
   } = props;
   useEffect(() => {
     function init() {
       try {
         if (elements && Array.isArray(elements)) {
-          const ul = document.getElementById('mapping_part');
+          const ul = document.getElementById(elementId);
 
           for (let index = 0; index < elements.length; index++) {
             const element = elements[index];
@@ -94,7 +95,7 @@ const MappingCharts = props => {
               const w = item.width ? item.width : 40;
               const d = element.distance || 0;
               const c = item.color ? item.color : randomRgbColor();
-              const value = '<div id="part_' + index + '_' + k + '" style="height:' + h + 'px;width:' + w + 'px;margin:0 ' + d + 'px;background:' + c + ';"><span>' + item.name + '</span></div>';
+              const value = '<div id="part_' + index + '_' + k + '_' + elementId + '" style="height:' + h + 'px;width:' + w + 'px;margin:0 ' + d + 'px;background:' + c + ';"><span>' + item.name + '</span></div>';
               strBuffer += value;
             }
 
@@ -113,17 +114,17 @@ const MappingCharts = props => {
 
               if (item.target !== '') {
                 const pos = filterPos(elements, item.target);
-                partObject['item_' + j + '_' + p] = new LeaderLine(document.getElementById('part_' + j + '_' + p + ''), document.getElementById(pos), {
+                partObject['item_' + j + '_' + p + '_' + elementId] = new LeaderLine(document.getElementById('part_' + j + '_' + p + '_' + elementId), document.getElementById(pos + '_' + elementId), {
                   hide: true
                 });
 
                 if (item.start !== '' && item.end !== '') {
-                  partObject['item_' + j + '_' + p].setOptions({
+                  partObject['item_' + j + '_' + p + '_' + elementId].setOptions({
                     startSocket: item.start,
                     endSocket: item.end,
                     path: 'fluid'
                   });
-                  partObject['item_' + j + '_' + p].show('draw', {
+                  partObject['item_' + j + '_' + p + '_' + elementId].show('draw', {
                     duration: 1000,
                     timing: [0.58, 0, 0.42, 1]
                   });
@@ -144,7 +145,7 @@ const MappingCharts = props => {
   return React.createElement("div", {
     className: 'mapping_charts'
   }, React.createElement("ul", {
-    id: 'mapping_part',
+    id: elementId,
     className: styles.mapping_part
   }));
 };
